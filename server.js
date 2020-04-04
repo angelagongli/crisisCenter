@@ -4,8 +4,6 @@ var session = require("express-session");
 // Requiring passport as we've configured it
 var passport = require("./config/passport");
 
-var dotenv = require("dotenv").config();
-
 // Setting up port and requiring models for syncing
 var PORT = process.env.PORT || 8080;
 var db = require("./models");
@@ -35,10 +33,4 @@ db.sequelize.sync().then(function() {
       PORT
     );
   });
-});
-
-db.connect({
-  host: process.env.DB_HOST,
-  username: process.env.DB_USER,
-  password: process.env.DB_PASS
 });
