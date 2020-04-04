@@ -12,7 +12,7 @@ SO THAT I can easily view, save and share such content with other users of the s
 * Twitter API
 * COVID 19 map by CSSE at Johns Hopkins University
 * Twilio SendGrid API
-* Materialize (??) CSS framework
+* Bootstrap
 * Handlebars to generate HTML pages
 * MySQL via JawsDB on Heroku
 * Sequelize ORM
