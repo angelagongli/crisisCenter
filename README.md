@@ -21,4 +21,8 @@ SO THAT I can easily view, save and share such content with other users of the s
 * Michael - Twitter integration
 * Nick - COVID 19 map integration
 * Angela - Twilio integration
-* All - Database/routes
+* All - Database/routes/frontend
+
+## Extras
+* Add a video messaging capability
+* Quarentine ideas page
