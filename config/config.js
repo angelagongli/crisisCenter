@@ -16,10 +16,10 @@ module.exports = {
     dialect: "mysql"
   },
   production: {
-    username: process.env.JAWSDB_URL,
-    password: process.env.JAWSDB_URL,
-    database: "database_production",
-    host: process.env.JAWSDB_URL,
+    username: process.env.JAWSDB_URL.username,
+    password: process.env.JAWSDB_URL.password,
+    database: process.env.JAWSDB_URL.database,
+    host: process.env.JAWSDB_URL.host,
     dialect: "mysql"
   }
 };
