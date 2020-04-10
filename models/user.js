@@ -6,36 +6,53 @@ module.exports = function(sequelize, DataTypes) {
     // The email cannot be null, and must be a proper email before creation
     name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true
-      }
+        isEmail: true,
+      },
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     family: {
       type: DataTypes.INTEGER,
-      defaultValue: null
-    }
+      defaultValue: null,
+    },
   });
-    
-    
+
   User.associate = function(models) {
     models.User.belongsTo(models.Family, {
       onDelete: "CASCADE",
       foreignKey: {
-        allowNull: false
-      }
-    });  
-  }
+        allowNull: false,
+      },
+    });
+  };
+
+  User.associate = function(models) {
+    models.User.hasMany(models.Post, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
+
+  User.associate = function(models) {
+    models.User.hasMany(models.Comment, {
+      onDelete: "CASCADE",
+      foreignKey: {
+        allowNull: false,
+      },
+    });
+  };
 
   // Creating a custom method for our User model. This will check if an unhashed password entered by the user can be compared to the hashed password stored in our database
   User.prototype.validPassword = function(password) {
