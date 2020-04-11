@@ -3,12 +3,3 @@ $(document).ready(function() {
       $(".member-name").text(data.name);
     });
   });
-
-$(document).ready(function(){
-    const stayBusy = $("div#stayBusy");
-
-stayBusy.on("click", function(){
-    $.get("/staybusy")
-});
-
-});
