@@ -6,33 +6,33 @@ module.exports = function(sequelize, DataTypes) {
     // The email cannot be null, and must be a proper email before creation
     name: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     email: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
       validate: {
-        isEmail: true,
-      },
+        isEmail: true
+      }
     },
     // The password cannot be null
     password: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: false
     },
     family: {
       type: DataTypes.INTEGER,
-      defaultValue: null,
-    },
+      defaultValue: null
+    }
   });
 
   User.associate = function(models) {
     models.User.belongsTo(models.Family, {
       onDelete: "CASCADE",
       foreignKey: {
-        allowNull: false,
-      },
+        allowNull: false
+      }
     });
   };
 
@@ -40,8 +40,8 @@ module.exports = function(sequelize, DataTypes) {
     models.User.hasMany(models.Post, {
       onDelete: "CASCADE",
       foreignKey: {
-        allowNull: false,
-      },
+        allowNull: false
+      }
     });
   };
 
@@ -49,8 +49,8 @@ module.exports = function(sequelize, DataTypes) {
     models.User.hasMany(models.Comment, {
       onDelete: "CASCADE",
       foreignKey: {
-        allowNull: false,
-      },
+        allowNull: false
+      }
     });
   };
 

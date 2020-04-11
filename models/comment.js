@@ -1,16 +1,16 @@
 module.exports = function(sequelize, DataTypes) {
-  let Comment = sequelize.define("Comment", {
+  var Comment = sequelize.define("Comment", {
     message: {
-      type: DataTypes.string,
-    },
+      type: DataTypes.STRING
+    }
   });
-  return Comment;
-};
 
-Comment.associate = function(models) {
-  models.Comment.belongsTo(models.User, {
-    foreignKey: {
-      allowNull: false,
-    },
-  });
+  Comment.associate = function(models) {
+    models.Comment.belongsTo(models.User, {
+      foreignKey: {
+        allowNull: false
+      }
+    });
+  };
+  return Comment;
 };
