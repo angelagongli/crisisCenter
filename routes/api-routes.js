@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var exphbs = require("express-handlebars");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -18,11 +19,10 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", function(req, res) {
-    console.log("called");
     db.User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password  
+      password: req.body.password
     })
       .then(function() {
         res.redirect(307, "/api/login");
@@ -31,7 +31,7 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
-  
+
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
@@ -52,5 +52,33 @@ module.exports = function(app) {
         id: req.user.id
       });
     }
+  });
+
+  app.get("/posts", function(req, res) {
+    db.Post.findAll({}).then(posts => {
+      res.json(posts);
+    });
+  });
+
+  app.post("/posts", function(req, res) {
+    db.Post.create({
+      title: req.body.title,
+      body: req.body.body
+    }).then(() => res.json({}));
+  });
+
+  app.get("/forum/:id", function(req, res) {
+    app.engine("handlebars", exphbs({ defaultLayout: "forum" }));
+    app.set("view engine", "handlebars");
+    db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).done(function(post) {
+      app.render("post", {
+        title: post.title,
+        body: post.body
+      });
+    });
   });
 };
