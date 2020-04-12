@@ -27,33 +27,9 @@ module.exports = function(app) {
   app.get("/members", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
 
-    // const queryURL = "https://api.twitter.com/1.1/lists/show.json";
-    // axios
-    //   .get(queryURL)
-    //   .then(function(response) {
-    //     const data = response.text();
-    //     console.log(response);
-    //     const twitterDiv = $(".twitter");
-    //     twitterDiv.append(data);
-    //     console.log(twitterDiv);
-
-    //   }).catch(function(err) {
-    //     console.log(err);
-    // });
-
     app.get("/staybusy", isAuthenticated, function(req, res) {
       res.sendFile(path.join(__dirname, "../public/staybusy.html"));
     });
-
-    // const queryURL = "https://api.twitter.com/1.1/lists/list.json?user_id=PennStateBrit";
-    // axios
-    //   .get(queryURL)
-    //   .then(function(response) {
-    //     const data = response.entities;
-    //     console.log(response);
-    //     const twitterDiv = $(".twitter");
-    //     twitterDiv.append(data);
-    //   });
 
     app.get("/forum", isAuthenticated, function(req, res) {
       // If the user is logged in, send them to the forum page
