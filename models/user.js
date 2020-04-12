@@ -20,15 +20,12 @@ module.exports = function(sequelize, DataTypes) {
     password: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-    family: {
-      type: DataTypes.INTEGER,
-      defaultValue: null
     }
   });
     
     
   User.associate = function(models) {
+    // models.User.belongsToMany(models.Family, {
     models.User.belongsTo(models.Family, {
       onDelete: "CASCADE",
       foreignKey: {
