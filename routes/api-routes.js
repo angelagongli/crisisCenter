@@ -2,6 +2,7 @@
 var db = require("../models");
 var passport = require("../config/passport");
 var axios = require("axios");
+var Twitter = require("twitter");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -19,10 +20,11 @@ module.exports = function(app) {
   // how we configured our Sequelize User Model. If the user is created successfully, proceed to log the user in,
   // otherwise send back an error
   app.post("/api/signup", function(req, res) {
+    console.log("called");
     db.User.create({
       name: req.body.name,
       email: req.body.email,
-      password: req.body.password
+      password: req.body.password  
     })
       .then(function() {
         res.redirect(307, "/api/login");
@@ -94,8 +96,8 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
-
-   // Route for logging user out
+  
+  // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
     res.redirect("/");
@@ -116,6 +118,7 @@ module.exports = function(app) {
       });
     }
   });
+
 
   app.get("/api/user_family_data", function(req, res) {
     if (!req.user) {
@@ -147,7 +150,7 @@ module.exports = function(app) {
       });
     }
   });
-
+  
   app.get("/api/emails/inbox", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
@@ -192,3 +195,18 @@ module.exports = function(app) {
   });
 
 };
+  app.get("/tweets", function(req, res) {
+    var client = new Twitter({
+      consumer_key: process.env.consumer_key,
+      consumer_secret: process.env.consumer_secret,
+      access_token_key: process.env.access_token_key,
+      access_token_secret: process.env.access_token_secret
+    });
+
+    client.get('lists/statuses.json', {list_id: '1246463879271657474'}, function(error, tweets, response) {
+      if(error) console.log(error);
+      console.log(tweets); 
+        res.json(tweets);
+    });
+})};
+

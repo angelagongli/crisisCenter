@@ -184,3 +184,8 @@ $(document).ready(function() {
   }
   
 });
+
+$.get("/tweets").then(function(data){
+  console.log(data);
+})
+

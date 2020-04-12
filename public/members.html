@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-  <title>Corona Crisis Center</title>
+  <title>Welcome Members</title>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
@@ -12,15 +12,21 @@
 
 <body>
   <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="/logout">
-          Logout
-        </a>
-      </div>
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/logout">
+        Logout
+      </a>
+        <div class="nav-item active"></div>
+          <a class="nav-link" id="stayBusy" href="/staybusy">Stay Busy!</a>
+        </div>
     </div>
   </nav>
   <div class="container">
+    <div class="map">
+      <iframe src="https://www.arcgis.com/apps/opsdashboard/index.html#/85320e2ea5424dfaaa75ae62e5c06e61" width="100%" height="300"></iframe>
+      <p>Credit: Johns Hopkins University</p>
+    </div>
     <div class="row">
       <div class="col-md-6 col-md-offset-3">
         <h2>Welcome, <span class="member-name"></span></h2>
@@ -30,8 +36,8 @@
     <div class="row">
       <div class="col-12 col-md-9 articles"></div>
       <div class="col-md-3">
-        <div class="twitter">
-          <a class="twitter-timeline" href="https://twitter.com/PennStateBrit/lists/crisis-center?ref_src=twsrc%5Etfw">Coronavirus Latest</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <div id="twitter">
+          <!-- <a class="twitter-timeline" href="https://twitter.com/PennStateBrit/lists/crisis-center?ref_src=twsrc%5Etfw">Coronavirus Latest</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script> -->
         </div>
       </div>
     </div>
@@ -143,3 +149,5 @@
 </body>
 
 </html>
+
+
