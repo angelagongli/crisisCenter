@@ -29,7 +29,7 @@ module.exports = function(sequelize, DataTypes) {
     
     
   User.associate = function(models) {
-    models.User.belongsTo(models.Family, {
+    models.User.belongsToMany(models.Family, {
       onDelete: "CASCADE",
       foreignKey: {
         allowNull: false
