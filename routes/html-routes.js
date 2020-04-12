@@ -9,32 +9,35 @@ var Twitter = require("twitter");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
-
   app.get("/", function(req, res) {
-    // If the user already has an account send them to the members page
-    if (req.user) {
-      res.redirect("/members");
-    }
-    res.sendFile(path.join(__dirname, "../public/signup.html"));
-  });
-
-  app.get("/login", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
       res.redirect("/members");
     }
     res.sendFile(path.join(__dirname, "../public/login.html"));
   });
+
+  app.get("/signup", function(req, res) {
+    // If the user already has an account send them to the members page
+    if (req.user) {
+      res.redirect("/members");
+    }
+    res.sendFile(path.join(__dirname, "../public/signup.html"));
+  });
  
   app.get("/members", isAuthenticated, function(req, res){
     res.sendFile(path.join(__dirname, "../public/members.html"));
   })
-  // Here we've add our isAuthenticated middleware to this route.
-  // If a user who is not logged in tries to access this route they will be redirected to the signup page
+
+    app.get("/staybusy", isAuthenticated, function(req, res) {
+      res.sendFile(path.join(__dirname, "../public/staybusy.html"));
+    });
 
 
-  app.get("/staybusy", isAuthenticated, function(req, res){
-    res.sendFile(path.join(__dirname, "../public/staybusy.html"));
+    app.get("/forum", isAuthenticated, function(req, res) {
+      // If the user is logged in, send them to the forum page
+      res.sendFile(path.join(__dirname, "../public/forum.html"));
+    });
   });
 
 app.get("/bookmarks", isAuthenticated, function(req, res) {
