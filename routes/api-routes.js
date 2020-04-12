@@ -1,6 +1,7 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
+var Twitter = require("twitter");
 
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
@@ -53,4 +54,18 @@ module.exports = function(app) {
       });
     }
   });
-};
+
+  app.get("/tweets", function(req, res) {
+    var client = new Twitter({
+      consumer_key: process.env.consumer_key,
+      consumer_secret: process.env.consumer_secret,
+      access_token_key: process.env.access_token_key,
+      access_token_secret: process.env.access_token_secret
+    });
+
+    client.get('lists/statuses.json', {list_id: '1246463879271657474'}, function(error, tweets, response) {
+      if(error) console.log(error);
+      console.log(tweets); 
+        res.json(tweets);
+    });
+})};
