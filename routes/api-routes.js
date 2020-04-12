@@ -1,9 +1,8 @@
 // Requiring our models and passport as we've configured it
 var db = require("../models");
 var passport = require("../config/passport");
-
 var exphbs = require("express-handlebars");
-
+var axios = require("axios");
 var Twitter = require("twitter");
 
 
@@ -36,6 +35,69 @@ module.exports = function(app) {
       });
   });
 
+  app.post("/api/emails", function(req, res) {
+    db.Email.create({
+      content: req.body.content,
+      text: req.body.text,
+      subject: req.body.subject,
+      message: req.body.message,
+      UserId: req.body.userID,
+      recipientID: req.body.recipientID
+    })
+      .then(function(data) {
+        const sgMail = require('@sendgrid/mail');
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
+        let textString = req.body.message + " -- Sent by " + 
+          req.body.userName + " (" + 
+          req.body.userEmail + "): " + 
+          req.body.text;
+
+        let HTMLString = req.body.message + "<br><br>Sent by " + 
+          req.body.userName + " (" + 
+          req.body.userEmail + ")<br><br>" + 
+          req.body.content;
+
+        const msg = {
+          to: req.body.recipientEmail,
+          from: "coronacrisiscenter@gmail.com",
+          subject: req.body.subject,
+          text: textString,
+          html: HTMLString,
+        };
+        
+        sgMail
+          .send(msg)
+          .then(() => {}, error => {
+            console.error(error);
+         
+            if (error.response) {
+              console.error(error.response.body)
+            }
+          });
+
+        res.json(data);
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
+
+  app.post("/api/bookmarks", function(req, res) {
+    db.Bookmark.create({
+      content: req.body.content,
+      text: req.body.text,
+      note: req.body.note,
+      UserId: req.body.userID
+    })
+      .then(function(data) {
+        res.json(data);
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
+  
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
@@ -57,7 +119,6 @@ module.exports = function(app) {
       });
     }
   });
-
 
   app.get("/posts", function(req, res) {
     db.Post.findAll({}).then(posts => {
@@ -86,6 +147,82 @@ module.exports = function(app) {
       });
     });
   });
+};
+
+  app.get("/api/user_family_data", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      db.User.findAll({
+        attributes : ["name", "email", "id"],
+        where : { FamilyId: req.user.FamilyId }
+      }).then(data => {
+        res.json(data);
+      }).catch(function(err) {
+        res.status(401).json(err);
+      });
+    }
+  });
+
+  app.get("/api/emails/outbox", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      db.Email.findAll({
+        where : {UserId: req.user.id }
+      }).then(data => {
+        res.json(data);
+      }).catch(function(err) {
+        res.status(401).json(err);
+      });
+    }
+  });
+  
+  app.get("/api/emails/inbox", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      db.Email.findAll({
+        where : {recipientID: req.user.id }
+      }).then(data => {
+        res.json(data);
+      }).catch(function(err) {
+        res.status(401).json(err);
+      });
+    }
+  });
+
+  app.get("/api/bookmarks", function(req, res) {
+    if (!req.user) {
+      // The user is not logged in, send back an empty object
+      res.json({});
+    } else {
+      db.Bookmark.findAll({
+        where : {UserId: req.user.id }
+      }).then(data => {
+        res.json(data);
+      }).catch(function(err) {
+        res.status(401).json(err);
+      });
+    }
+  });
+
+  app.get("/api/nytimes", function(req, res) {
+    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=7zg49YbZEaOjLSJIGYvO0nYJbHwmIQHa&q=coronavirus"
+    
+    axios.get(queryURL)
+      .then(response => {
+        console.log(response.data);
+        res.json(response.data);
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
+
 };
 
   app.get("/tweets", function(req, res) {

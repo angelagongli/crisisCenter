@@ -1,7 +1,9 @@
 // Requiring path to so we can use relative routes to our HTML files
 var path = require("path");
+var db = require("../models");
 var axios = require("axios");
 var Twitter = require("twitter");
+
 
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
@@ -38,13 +40,33 @@ module.exports = function(app) {
     });
   });
 
-  // const queryURL = "https://api.twitter.com/1.1/lists/list.json?user_id=PennStateBrit";
-  // axios
-  //   .get(queryURL)
-  //   .then(function(response) {
-  //     const data = response.entities;
-  //     console.log(response);
-  //     const twitterDiv = $(".twitter");
-  //     twitterDiv.append(data);
-  //   });
+app.get("/bookmarks", isAuthenticated, function(req, res) {
+    db.Bookmark.findAll({
+      where : {UserId: req.user.id }
+    }).then(data => {
+      res.render("bookmarks", { bookmarks: data });
+    }).catch(function(err) {
+      res.status(401).json(err);
+    });
+  });
+
+  app.get("/inbox", isAuthenticated, function(req, res) {
+    db.Email.findAll({
+      where : {recipientID: req.user.id }
+    }).then(data => {
+      res.render("inbox", { emails: data });
+    }).catch(function(err) {
+      res.status(401).json(err);
+    });
+  });
+
+  app.get("/outbox", isAuthenticated, function(req, res) {
+    db.Email.findAll({
+      where : {UserId: req.user.id }
+    }).then(data => {
+      res.render("outbox", { emails: data });
+    }).catch(function(err) {
+      res.status(401).json(err);
+    });
+  });
 };
