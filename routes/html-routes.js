@@ -9,6 +9,7 @@ var Twitter = require("twitter");
 var isAuthenticated = require("../config/middleware/isAuthenticated");
 
 module.exports = function(app) {
+  
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
     if (req.user) {
@@ -38,9 +39,8 @@ module.exports = function(app) {
       // If the user is logged in, send them to the forum page
       res.sendFile(path.join(__dirname, "../public/forum.html"));
     });
-  });
 
-app.get("/bookmarks", isAuthenticated, function(req, res) {
+  app.get("/bookmarks", isAuthenticated, function(req, res) {
     db.Bookmark.findAll({
       where : {UserId: req.user.id }
     }).then(data => {

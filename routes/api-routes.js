@@ -212,7 +212,6 @@ module.exports = function(app) {
 
   app.get("/api/nytimes", function(req, res) {
     let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=7zg49YbZEaOjLSJIGYvO0nYJbHwmIQHa&q=coronavirus"
-    
     axios.get(queryURL)
       .then(response => {
         console.log(response.data);
@@ -223,7 +222,6 @@ module.exports = function(app) {
       });
   });
 
-};
 
   app.get("/tweets", function(req, res) {
     var client = new Twitter({
@@ -238,5 +236,18 @@ module.exports = function(app) {
       console.log(tweets); 
         res.json(tweets);
     });
-})};
+
+    app.get("/staybusy", function(req, res) {
+      db.Idea.findAll({}).then(ideas => {
+        res.json(ideas);
+      });
+    });
+    app.post("/staybusy", function(req, res) {
+      db.Idea.create({
+        title: req.body.title,
+        body: req.body.body,
+        user: req.body.user
+      }).then(() => res.json({}));
+    });
+});
 
