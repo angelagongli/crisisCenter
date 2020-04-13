@@ -16,13 +16,43 @@ $(document).ready(function() {
             user: authorSelect.val()
           };
           $.post("/staybusy", newPost)
-          .then(function(data) {
-          console.log("success" + JSON.stringify(data));
+          .then(function() {
+          var row = $("<div>");
+          row.addClass("idea");
+
+          row.append("<p> Title: " + newPost.title + "</p>");
+          row.append("<p> Idea: " + newPost.body + "</p>");
+          row.append("<p> User: " + newPost.user + "</p>");
+
+          $(".new-idea").prepend(row);
           
           }).catch(err => {
               if (err) {
                   console.log(err);
               }
           });
+
+        $("#body").val("");
+        $("#title").val("");
+        $("#email").val("");
     });
+
+    
+
+   $.get("/staybusy", function(data){
+       if (data.length !== 0) {
+           for (var i = 0; i<data.length; i++)
+           var row = $("<div>");
+          row.addClass("idea");
+
+          row.append("<p> Title: " + data[i].title + "</p>");
+          row.append("<p> Idea: " + data[i].body + "</p>");
+          row.append("<p> User: " + data[i].user + "</p>");
+
+          $(".new-idea").prepend(row);
+       }
+   })
+
   });
+
+
