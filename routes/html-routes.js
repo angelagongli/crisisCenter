@@ -28,10 +28,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/staybusy.html"));
   });
 
-  app.get("/forum", isAuthenticated, function(req, res) {
-    // If the user is logged in, send them to the forum page
-    res.sendFile(path.join(__dirname, "../public/forum.html"));
-  });
+    app.get("/forum", isAuthenticated, function(req, res) {
+      // If the user is logged in, send them to the forum page
+      res.sendFile(path.join(__dirname, "../public/forum.html"));
+    });
 
   app.get("/bookmarks", isAuthenticated, function(req, res) {
     db.Bookmark.findAll({
