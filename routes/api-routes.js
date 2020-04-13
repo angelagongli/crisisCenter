@@ -211,7 +211,8 @@ module.exports = function(app) {
   });
 
   app.get("/api/nytimes", function(req, res) {
-    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=7zg49YbZEaOjLSJIGYvO0nYJbHwmIQHa&q=coronavirus"
+    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
+      process.env.NYTIMES_API_KEY + "&q=coronavirus";
     
     axios.get(queryURL)
       .then(response => {
