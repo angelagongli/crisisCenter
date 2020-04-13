@@ -23,13 +23,16 @@ module.exports = function(app) {
   app.get("/members", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/members.html"));
   });
+
   app.get("/staybusy", isAuthenticated, function(req, res) {
     res.sendFile(path.join(__dirname, "../public/staybusy.html"));
   });
+
   app.get("/forum", isAuthenticated, function(req, res) {
     // If the user is logged in, send them to the forum page
     res.sendFile(path.join(__dirname, "../public/forum.html"));
   });
+
   app.get("/bookmarks", isAuthenticated, function(req, res) {
     db.Bookmark.findAll({
       where: { UserId: req.user.id }
@@ -87,5 +90,25 @@ module.exports = function(app) {
     }).then(post => {
       app.render("post", { title: post.title, body: post.body });
     });
+  });
+
+  app.get("/staybusy", isAuthenticated, function(req, res) {
+    db.Idea.findAll({
+      where: { UserId: req.user.id }
+    })
+      .then(data => {
+        res.render("newIdea", { ideas: data });
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
+
+  app.post("/staybusy", function(req, res) {
+    db.Idea.create({
+      title: req.body.title,
+      body: req.body.body,
+      user: req.body.user
+    }).then(() => res.json({}));
   });
 };
