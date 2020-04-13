@@ -147,7 +147,7 @@ module.exports = function(app) {
       });
     });
   });
-};
+
 
   app.get("/api/user_family_data", function(req, res) {
     if (!req.user) {
@@ -223,9 +223,8 @@ module.exports = function(app) {
       });
   });
 
-};
 
-  app.get("/tweets", function(req, res) {
+  app.get("/api/tweets", function(req, res) {
     var client = new Twitter({
       consumer_key: process.env.consumer_key,
       consumer_secret: process.env.consumer_secret,
@@ -235,8 +234,8 @@ module.exports = function(app) {
 
     client.get('lists/statuses.json', {list_id: '1246463879271657474'}, function(error, tweets, response) {
       if(error) console.log(error);
-      console.log(tweets); 
         res.json(tweets);
     });
-})};
+});
 
+};

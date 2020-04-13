@@ -38,7 +38,7 @@ module.exports = function(app) {
       // If the user is logged in, send them to the forum page
       res.sendFile(path.join(__dirname, "../public/forum.html"));
     });
-  });
+  
 
 app.get("/bookmarks", isAuthenticated, function(req, res) {
     db.Bookmark.findAll({
