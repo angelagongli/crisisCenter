@@ -230,10 +230,13 @@ module.exports = function(app) {
       access_token_secret: process.env.access_token_secret
     });
 
-    client.get('lists/statuses.json', {list_id: '1246463879271657474'}, function(error, tweets, response) {
-      if(error) console.log(error);
+    client.get(
+      "lists/statuses.json",
+      { list_id: "1246463879271657474" },
+      function(error, tweets, response) {
+        if (error) console.log(error);
+        console.log(tweets);
         res.json(tweets);
-    });
-  });
-};
+      });
 
+})};
