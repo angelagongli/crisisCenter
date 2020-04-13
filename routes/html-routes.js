@@ -35,5 +35,9 @@ module.exports = function(app) {
       // If the user is logged in, send them to the forum page
       res.sendFile(path.join(__dirname, "../public/forum.html"));
     });
+    app.get("/post", isAuthenticated, function(req, res) {
+      // If the user is logged in, send them to the forum page
+      res.sendFile(path.join(__dirname, "../public/post.html"));
+    });
   });
 };

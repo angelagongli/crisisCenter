@@ -68,17 +68,12 @@ module.exports = function(app) {
   });
 
   app.get("/forum/:id", function(req, res) {
-    app.engine("handlebars", exphbs({ defaultLayout: "forum" }));
-    app.set("view engine", "handlebars");
     db.Post.findOne({
       where: {
         id: req.params.id
       }
-    }).done(function(post) {
-      app.render("post", {
-        title: post.title,
-        body: post.body
-      });
+    }).then(post => {
+      res.json(post);
     });
   });
 };
