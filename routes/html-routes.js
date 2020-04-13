@@ -91,7 +91,7 @@ module.exports = function(app) {
         id: req.params.id
       }
     }).then(post => {
-      app.render("post", {
+      res.render("post", {
         title: post.title,
         body: post.body
       });
