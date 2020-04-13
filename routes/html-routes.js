@@ -84,11 +84,17 @@ module.exports = function(app) {
       user: req.body.user
     }).then(dbPost => res.json({ dbPost }));
   });
+
   app.get("/forum/:id", function(req, res) {
     db.Post.findOne({
-      where: { id: req.params.id }
+      where: {
+        id: req.params.id
+      }
     }).then(post => {
-      app.render("post", { title: post.title, body: post.body });
+      res.render("post", {
+        title: post.title,
+        body: post.body
+      });
     });
   });
 
