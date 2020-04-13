@@ -138,6 +138,21 @@ module.exports = function(app) {
     }).then(() => res.json({}));
   });
 
+  app.get("/forum/:id", function(req, res) {
+    app.engine("handlebars", exphbs({ defaultLayout: "forum" }));
+    app.set("view engine", "handlebars");
+    db.Post.findOne({
+      where: {
+        id: req.params.id
+      }
+    }).done(function(post) {
+      app.render("post", {
+        title: post.title,
+        body: post.body
+      });
+    });
+  });
+
   app.get("/api/user_family_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
@@ -204,10 +219,10 @@ module.exports = function(app) {
     }
   });
   app.get("/api/nytimes", function(req, res) {
-    let queryURL =
-      "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=7zg49YbZEaOjLSJIGYvO0nYJbHwmIQHa&q=coronavirus";
-    axios
-      .get(queryURL)
+    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
+      process.env.NYTIMES_API_KEY + "&q=coronavirus";
+    
+    axios.get(queryURL)
       .then(response => {
         console.log(response.data);
         res.json(response.data);
@@ -217,13 +232,15 @@ module.exports = function(app) {
       });
   });
 
-  app.get("/tweets", function(req, res) {
+  app.get("api/tweets", function(req, res) {
+
     var client = new Twitter({
       consumer_key: process.env.consumer_key,
       consumer_secret: process.env.consumer_secret,
       access_token_key: process.env.access_token_key,
       access_token_secret: process.env.access_token_secret
     });
+
     client.get(
       "lists/statuses.json",
       { list_id: "1246463879271657474" },
@@ -232,12 +249,8 @@ module.exports = function(app) {
         console.log(tweets);
         res.json(tweets);
       }
-    );
-
-    app.get("/staybusy", function(req, res) {
-      db.Idea.findAll({}).then(ideas => {
-        res.json(ideas);
-      });
-    });
+    )
   });
+
 };
+

@@ -27,12 +27,20 @@ $(document).ready(function() {
     updatePage(data);
   });
 
+  $.get("/api/tweets").then(function(data) {
+    appendTweets(data);
+  });
+
   $(document).on("click", ".email-btn", function() {
     let contentID = $(this).data("id");
     contentHTML = $(`#${contentID}`).html();
     contentText = $(`#${contentID}`).text();
     $("#subject").val("[Corona Crisis Center] FWD: "); 
-    $("#message").val("Here is an interesting article!"); 
+    if (contentID.includes("article")) {
+      $("#message").val("Here is an interesting article!"); 
+    } else if (contentID.includes("tweet")) {
+      $("#message").val("Here is an interesting tweet!"); 
+    }
   });
 
   $("#send").on("click", function(event) {
@@ -180,6 +188,39 @@ $(document).ready(function() {
       // Append the article
       $articleListItem.append(buttonsRow);
       $articleList.append($articleListItem);
+    }
+  }
+
+  function appendTweets(tweets) {
+    let twitterDiv = $("#twitter");
+    let twitterList = twitterDiv.append($("<ul class='list-group'></ul>"));
+    for (let i = 0; i < 10; i++) {
+      let tweet = tweets[i];
+      let tweetListItem = $("<li class='list-group-item'></li>");
+      let tweetDiv = $("<div id='tweet" + i + "'>");
+      tweetDiv.append("<p><img src='" + tweet.user.profile_image_url + 
+      "'> " + tweet.user.name + " (@" + tweet.user.screen_name + ")</p>");
+      tweetDiv.append("<p><i class='fas fa-quote-left'></i> " + 
+        tweet.text + " <i class='fas fa-quote-right'></i></p>");
+      tweetDiv.append("<p>" + tweet.created_at + "</p>");
+      tweetDiv.append("<p><i class='fas fa-retweet'></i> " + tweet.retweet_count + 
+        " <i class='far fa-heart'></i> " + tweet.favorite_count + "</p>");
+      tweetListItem.append(tweetDiv);
+      
+      let bookmarkButtonRow = $("<p><span class='buttons-span'>Bookmark this tweet</span></p>");
+      let bookmarkButton = $("<button type='button' class='btn btn-primary bookmark-btn' data-toggle='modal' data-target='#bookmark'></button>");
+      bookmarkButton.attr("data-id", "tweet" + i);
+      bookmarkButton.append($("<i class='fas fa-bookmark'></i>"));
+      bookmarkButtonRow.prepend(bookmarkButton);
+      tweetListItem.append(bookmarkButtonRow);
+      
+      let emailButtonRow = $("<p><span class='buttons-span'>Email this tweet</span></p>");
+      let emailButton = $("<button type='button' class='btn btn-primary email-btn' data-toggle='modal' data-target='#email'></button>");
+      emailButton.attr("data-id", "tweet" + i);
+      emailButton.append($("<i class='fas fa-envelope'></i>"));
+      emailButtonRow.prepend(emailButton);
+      tweetListItem.append(emailButtonRow);
+      twitterList.append(tweetListItem);
     }
   }
   
