@@ -29,10 +29,10 @@ module.exports = function(app) {
     res.sendFile(path.join(__dirname, "../public/staybusy.html"));
   });
 
-  app.get("/forum", isAuthenticated, function(req, res) {
-    // If the user is logged in, send them to the forum page
-    res.sendFile(path.join(__dirname, "../public/forum.html"));
-  });
+    app.get("/forum", isAuthenticated, function(req, res) {
+      // If the user is logged in, send them to the forum page
+      res.sendFile(path.join(__dirname, "../public/forum.html"));
+    });
 
   app.get("/bookmarks", isAuthenticated, function(req, res) {
     db.Bookmark.findAll({
@@ -110,17 +110,20 @@ module.exports = function(app) {
       res.json(comments);
     });
   });
+  // app.get("/staybusy", isAuthenticated, function(req, res) {
+  //   db.Idea.findAll({
+  //     where : {UserId: req.user.id }
+  //   }).then(data => {
+  //     res.render("newIdea", {ideas: data});
+  //   }).catch(function(err){
+  //     res.status(401).json(err);
+  //   })
+  // });
 
-  app.get("/staybusy", isAuthenticated, function(req, res) {
-    db.Idea.findAll({
-      where: { UserId: req.user.id }
-    })
-      .then(data => {
-        res.render("newIdea", { ideas: data });
-      })
-      .catch(function(err) {
-        res.status(401).json(err);
-      });
+  app.get("/staybusy", function(req, res) {
+    db.Idea.findAll({}).then(ideas => {
+      res.json(ideas);
+    });
   });
 
   app.post("/staybusy", function(req, res) {
