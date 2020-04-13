@@ -18,6 +18,34 @@
         </div>
     </div>
 </nav>
-
-<p>{{title}}</p>
-<p>{{body}}</p>
+<div class="container">
+    <div class="row">
+        <div class="col-12" id="postTitle">
+            <p>{{title}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12" id="postBody">
+            <p>{{body}}</p>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8 offset-2">
+            <textarea placeholder="Comment" class="form-control" rows="5" id="newComment"></textarea>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 offset-8">
+            <button type="submit" class="btn btn-primary" id="createComment">
+                Comment
+            </button>
+        </div>
+    </div>
+    <div class="comment">
+        <div class="row">
+            <div class="col-4 offset-5">
+                {{comments}}
+            </div>
+        </div>
+    </div>
+</div>

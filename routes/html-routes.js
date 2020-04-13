@@ -5,6 +5,7 @@ var axios = require("axios");
 var Twitter = require("twitter");
 // Requiring our custom middleware for checking if a user is logged in
 var isAuthenticated = require("../config/middleware/isAuthenticated");
+
 module.exports = function(app) {
   app.get("/", function(req, res) {
     // If the user already has an account send them to the members page
@@ -85,15 +86,37 @@ module.exports = function(app) {
     }).then(dbPost => res.json({ dbPost }));
   });
 
-  app.get("/forum/:id", function(req, res) {
+  app.get("/forum/:id", isAuthenticated, function(req, res) {
     db.Post.findOne({
       where: {
         id: req.params.id
-      }
+      },
+      include: [
+        {
+          model: db.Comment,
+          where: {
+            id: req.params.id
+          }
+        }
+      ]
     }).then(post => {
+      console.log(post);
+      // res.render("post", {
+      //   title: post.title,
+      //   body: post.body,
+      //   comments: post.message
+      // });
+    });
+  });
+
+  app.get("/comments", isAuthenticated, function(req, res) {
+    db.Comment.findAll({
+      where: {
+        PostId: req.params.id
+      }
+    }).then(comments => {
       res.render("post", {
-        title: post.title,
-        body: post.body
+        comments: comments.message
       });
     });
   });

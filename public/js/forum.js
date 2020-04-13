@@ -34,4 +34,22 @@ $(document).ready(function() {
       $("#postTitle").trigger("focus");
     });
   });
+
+  $("#createComment").on("click", function() {
+    let comment = $("#newComment")
+      .val()
+      .trim();
+    let url = window.location.href;
+    let id = url.substring(28);
+    $.ajax({
+      url: url,
+      method: "POST",
+      data: {
+        message: comment,
+        id: id
+      }
+    }).then(function() {
+      location.reload();
+    });
+  });
 });
