@@ -98,16 +98,21 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/staybusy", isAuthenticated, function(req, res) {
-    db.Idea.findAll({
-      where: { UserId: req.user.id }
-    })
-      .then(data => {
-        res.render("newIdea", { ideas: data });
-      })
-      .catch(function(err) {
-        res.status(401).json(err);
-      });
+  // app.get("/staybusy", isAuthenticated, function(req, res) {
+  //   db.Idea.findAll({
+  //     where : {UserId: req.user.id }
+  //   }).then(data => {
+  //     res.render("newIdea", {ideas: data});
+  //   }).catch(function(err){
+  //     res.status(401).json(err);
+  //   })
+  // });
+
+  app.get("/staybusy", function(req, res) {
+    db.Idea.findAll({}).then(ideas => {
+      res.json(ideas);
+    });
+
   });
 
   app.post("/staybusy", function(req, res) {
