@@ -1,26 +1,52 @@
-<nav class="navbar navbar-default">
-      <div class="container-fluid">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/logout" href="/forum" href="/members" href="/staybusy">
-            Logout
-          </a>
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="/">Corona Crisis Center</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/bookmarks">Bookmarks</a>
+      <li class="nav-item dropdown active">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Emails
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/inbox">Inbox</a>
+          <a class="dropdown-item" href="/outbox">Outbox</a>
         </div>
-      </div>
-    </nav>
-    <div class="container">
-      <div class="row">
-        <div class="col-md-6 col-md-offset-3">
-          <h2>New Idea</h2>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Community
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          <a class="dropdown-item" href="/forum">Forum</a>
+          <a class="dropdown-item" href="/staybusy">Ideas for Staying Busy</a>
         </div>
-      </div>
-      <div class="row" id="inbox">
-        <div class="col-12">
-          <ul>
-            {{#each emails}}
-              {{> divs/email-block}}    
-            {{/each}}
-          </ul>
-        </div>
-      </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="/logout">Logout</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+<div class="container">
+  <div class="row">
+    <div class="col-md-6 col-md-offset-3">
+      <h2>Outbox</h2>
     </div>
-
+  </div>
+  <div class="row" id="inbox">
+    <div class="col-12">
+      <ul>
+        {{#each emails}}
+          {{> divs/email-block}}    
+        {{/each}}
+      </ul>
+    </div>
+  </div>
+</div>
