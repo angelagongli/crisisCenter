@@ -28,7 +28,6 @@ $(document).ready(function() {
   });
 
   $.get("/api/tweets").then(function(data) {
-    console.log(data);
     appendTweets(data);
   });
 
@@ -199,11 +198,11 @@ $(document).ready(function() {
       let tweet = tweets[i];
       let tweetListItem = $("<li class='list-group-item'></li>");
       let tweetDiv = $("<div id='tweet" + i + "'>");
-      tweetDiv.append("<p>" + tweet.created_at + "</p>");
       tweetDiv.append("<p><img src='" + tweet.user.profile_image_url + 
       "'> " + tweet.user.name + " (@" + tweet.user.screen_name + ")</p>");
       tweetDiv.append("<p><i class='fas fa-quote-left'></i> " + 
         tweet.text + " <i class='fas fa-quote-right'></i></p>");
+      tweetDiv.append("<p>" + tweet.created_at + "</p>");
       tweetDiv.append("<p><i class='fas fa-retweet'></i> " + tweet.retweet_count + 
         " <i class='far fa-heart'></i> " + tweet.favorite_count + "</p>");
       tweetListItem.append(tweetDiv);
