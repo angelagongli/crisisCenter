@@ -17,8 +17,10 @@ $(document).ready(function() {
   $.get("/posts", function(data) {
     let div = $(".posts");
     for (i = 0; i < data.length; i++) {
-      let postContainer = $("<div>").attr("class", "post");
+      let postContainer = $("<a>").attr("class", "post");
+      postContainer.attr("href", `/forum/` + `${data[i].id}`);
       let postLink = $("<a>").attr("href", `/forum/` + `${data[i].id}`);
+      postLink.attr("id", "linkColor");
       let postLinkSpan = $("<span>").attr("class", "toPost");
       let title = data[i].title;
       postLinkSpan.append(postLink);
@@ -48,6 +50,7 @@ $(document).ready(function() {
         message: comment
       }
     }).then(function() {
+      $("#newComment").val("");
       $.get(`/comments/${id}`, function(data) {
         let commentsContainer = $("#commentArea");
         commentsContainer.empty();
