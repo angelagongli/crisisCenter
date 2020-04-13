@@ -127,21 +127,6 @@ module.exports = function(app) {
     }).then(() => res.json({}));
   });
 
-  app.get("/forum/:id", function(req, res) {
-    app.engine("handlebars", exphbs({ defaultLayout: "forum" }));
-    app.set("view engine", "handlebars");
-    db.Post.findOne({
-      where: {
-        id: req.params.id
-      }
-    }).done(function(post) {
-      app.render("post", {
-        title: post.title,
-        body: post.body
-      });
-    });
-  });
-
   app.get("/api/user_family_data", function(req, res) {
     if (!req.user) {
       // The user is not logged in, send back an empty object
