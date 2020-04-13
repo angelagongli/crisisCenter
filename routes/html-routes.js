@@ -110,9 +110,7 @@ module.exports = function(app) {
 
   app.get("/staybusy/ideas", function(req, res) {
     db.Idea.findAll({})
-    .then(data => {
-      res.render("newIdea", { ideas: data});
-    });
+    .then(data => {res.json(data);});
   });
 
   app.post("/staybusy", function(req, res) {

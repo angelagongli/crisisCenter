@@ -1,7 +1,9 @@
-$(document).ready(function() {
     var bodyInput = $("#body");
     var titleInput = $("#title");
     var authorSelect = $("#email");
+
+$(document).ready(function() {
+    
     console.log(bodyInput);
 
     $("#submit").on("click ", function(event) {
