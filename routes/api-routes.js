@@ -222,11 +222,5 @@ module.exports = function(app) {
         res.json(tweets);
       }
     );
-
-    app.get("/staybusy", function(req, res) {
-      db.Idea.findAll({}).then(ideas => {
-        res.json(ideas);
-      });
-    });
   });
 };

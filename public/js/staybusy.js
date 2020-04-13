@@ -39,7 +39,6 @@ $(document).ready(function() {
 
     $.get("/staybusy/ideas", function(data) {
         console.log(data);
-        var ideasToAdd = []
         if (data.length !== 0) {
            for (var i = 0; i < data.length; i++)
             var row = $("<div>");
