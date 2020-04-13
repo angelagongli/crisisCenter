@@ -221,7 +221,7 @@ module.exports = function(app) {
       });
   });
 
-  app.get("api/tweets", function(req, res) {
+  app.get("/api/tweets", function(req, res) {
 
     var client = new Twitter({
       consumer_key: process.env.consumer_key,
@@ -237,9 +237,6 @@ module.exports = function(app) {
         if (error) console.log(error);
         console.log(tweets);
         res.json(tweets);
-      }
-    )
-  });
+      });
 
-};
-
+})};
