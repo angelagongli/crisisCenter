@@ -236,7 +236,5 @@ module.exports = function(app) {
       console.log(tweets); 
         res.json(tweets);
     });
-
-    
-});
+  });
 };

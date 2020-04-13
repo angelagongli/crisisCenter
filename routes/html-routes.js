@@ -80,9 +80,10 @@ module.exports = function(app) {
   //   })
   // });
 
-  app.get("/staybusy", function(req, res) {
-    db.Idea.findAll({}).then(ideas => {
-      res.json(ideas);
+  app.get("/staybusy/ideas", function(req, res) {
+    db.Idea.findAll({})
+    .then(data => {
+      res.render("newIdea", { ideas: data});
     });
   });
 
