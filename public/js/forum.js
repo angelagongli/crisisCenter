@@ -20,9 +20,11 @@ $(document).ready(function() {
     for (i = 0; i < data.length; i++) {
       let postContainer = $("<div>").attr("class", "post");
       let postLink = $("<a>").attr("href", `/forum/` + `${data[i].id}`);
+      let postLinkSpan = $("<span>").attr("class", "toPost");
       let title = data[i].title;
+      postLinkSpan.append(postLink);
       postLink.append(title);
-      postContainer.append(postLink);
+      postContainer.append(postLinkSpan);
       div.append(postContainer);
     }
   });
