@@ -15,7 +15,6 @@ $(document).ready(function() {
   });
 
   $.get("/posts", function(data) {
-    console.log(data);
     let div = $(".posts");
     for (i = 0; i < data.length; i++) {
       let postContainer = $("<div>").attr("class", "post");
@@ -40,16 +39,27 @@ $(document).ready(function() {
       .val()
       .trim();
     let url = window.location.href;
-    let id = url.substring(28);
+    let id = url.substring(28, 31);
+    console.log(id);
     $.ajax({
       url: url,
       method: "POST",
       data: {
-        message: comment,
-        id: id
+        message: comment
       }
     }).then(function() {
-      location.reload();
+      $.get(`/comments/${id}`, function(data) {
+        let commentsContainer = $("#commentArea");
+        commentsContainer.empty();
+        for (i = 0; i < data.length; i++) {
+          let commentRow = $("<div>").attr("class", "comment");
+          let comment = $("<p>");
+          let commentMessage = data[i].message;
+          comment.append(commentMessage);
+          commentRow.append(comment);
+          commentsContainer.append(commentRow);
+        }
+      });
     });
   });
 });

@@ -90,34 +90,24 @@ module.exports = function(app) {
     db.Post.findOne({
       where: {
         id: req.params.id
-      },
-      include: [
-        {
-          model: db.Comment,
-          where: {
-            id: req.params.id
-          }
-        }
-      ]
+      }
     }).then(post => {
-      console.log(post);
-      // res.render("post", {
-      //   title: post.title,
-      //   body: post.body,
-      //   comments: post.message
-      // });
+      // console.log(post);
+      res.render("post", {
+        title: post.title,
+        body: post.body
+      });
     });
   });
 
-  app.get("/comments", isAuthenticated, function(req, res) {
+  app.get("/comments/:id", isAuthenticated, function(req, res) {
     db.Comment.findAll({
       where: {
         PostId: req.params.id
       }
     }).then(comments => {
-      res.render("post", {
-        comments: comments.message
-      });
+      console.log("called");
+      res.json(comments);
     });
   });
 
