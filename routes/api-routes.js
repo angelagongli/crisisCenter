@@ -147,7 +147,7 @@ module.exports = function(app) {
       });
     });
   });
-};
+
 
   app.get("/api/user_family_data", function(req, res) {
     if (!req.user) {
@@ -241,13 +241,7 @@ module.exports = function(app) {
       db.Idea.findAll({}).then(ideas => {
         res.json(ideas);
       });
-    });
-    app.post("/staybusy", function(req, res) {
-      db.Idea.create({
-        title: req.body.title,
-        body: req.body.body,
-        user: req.body.user
-      }).then(() => res.json({}));
+
     });
 });
-
+};
