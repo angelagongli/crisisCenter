@@ -1,5 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <title>Stay Busy</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/lumen/bootstrap.min.css"
+    />
+    <link href="stylesheets/style.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery.js"></script>
+  </head>
 
 <head>
   <title>Stay Busy</title>
@@ -62,17 +73,45 @@
     <div class="col-md-6 offset-md-3">
         <form id="cms">
             <div class="form-group">
-                <label for="title">Title:</label>
-                <input placeholder="Idea Title" type="text" class="form-control" id="title">
-                <br />
-                <label for="body">Body:</label>
-                <textarea placeholder="Idea Body" class="form-control" rows="10" id="body"></textarea>
-                <br />
-                <label for="title">Email:</label>
-                <input placeholder="Author Email" type="text" class="form-control" id="email">
-                <br />
-                <button type="button" class="btn btn-success submit" id="submit">Submit</button>
+              <label for="title">Title:</label>
+              <input
+                placeholder="Idea Title"
+                type="text"
+                class="form-control"
+                id="title"
+              />
+              <br />
+              <label for="body">Body:</label>
+              <textarea
+                placeholder="Idea Body"
+                class="form-control"
+                rows="10"
+                id="body"
+              ></textarea>
+              <br />
+              <label for="title">Email:</label>
+              <input
+                placeholder="Author Email"
+                type="text"
+                class="form-control"
+                id="email"
+              />
+              <br />
+              <button type="button" class="btn btn-success submit" id="submit">
+                Submit
+              </button>
             </div>
+
+            <div id="new-idea"></div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src="js/staybusy.js"></script>
+  </body>
+
+            <div class="new-idea"></div>
         </form>
         <div class="new-idea"></div>
     </div>

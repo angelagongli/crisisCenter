@@ -33,7 +33,8 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "CASCADE",
       foreignKey: {
         allowNull: false
-      }
+      },
+      targetKey: "id"
     });
   };
 
@@ -42,7 +43,8 @@ module.exports = function(sequelize, DataTypes) {
       onDelete: "CASCADE",
       foreignKey: {
         allowNull: false
-      }
+      },
+      targetKey: "id"
     });
   };
 

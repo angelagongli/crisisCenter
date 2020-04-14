@@ -7,6 +7,72 @@ form.login {
   padding: 10px;
 }
 
+#newPost {
+  margin-top: 1.5em;
+}
+#postContainer {
+  background-color: #f8f9fa;
+  border: 0.08em solid steelblue;
+  border-radius: 0.2em;
+  padding-bottom: 0.5em;
+  padding-top: 0.3em;
+  margin-top: 2.5em;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  height: 50vh;
+  overflow-y: scroll;
+}
+.post {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #007bff;
+  border: 0.08em solid steelblue;
+  border-radius: 0.2em;
+  margin-top: 0.2em;
+  width: 50vw;
+}
+.post:hover {
+  opacity: 70%;
+}
+#linkColor {
+  color: #fff;
+}
+
+#postTitle,
+#postBody {
+  background-color: ghostwhite;
+  border: 0.08em solid steelblue;
+  border-radius: 0.2em;
+  padding-top: 0.75em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#postTitle {
+  margin-top: 2.5em;
+}
+#postBody {
+  height: 40vh;
+  margin-top: 0.55em;
+  margin-bottom: 0.75em;
+}
+#newComment {
+  resize: none;
+  height: 10vh;
+  margin-left: 0.18em;
+  border-color: steelblue;
+  border-radius: 0.2em;
+  overflow-y: scroll;
+}
+#createComment {
+  margin-top: 0.35em;
+  margin-left: 0.18em;
+}
+
+
 .idea {
   padding: 10px;
   margin: 10px;
