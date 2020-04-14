@@ -28,6 +28,7 @@ $(document).ready(function() {
   });
 
   $.get("/api/tweets").then(function(data) {
+    console.log(data);
     appendTweets(data);
   });
 
@@ -50,7 +51,7 @@ $(document).ready(function() {
     let recipient = $("#recipient").val().trim();
 
     for (member of members) {
-      if (member.name = recipient) {
+      if (member.name === recipient) {
         recipientID = member.id;
         recipientEmail = member.email;
       }
