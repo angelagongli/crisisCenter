@@ -110,32 +110,16 @@ module.exports = function(app) {
       res.json(comments);
     });
   });
-  // app.get("/staybusy", isAuthenticated, function(req, res) {
-  //   db.Idea.findAll({
-  //     where : {UserId: req.user.id }
-  //   }).then(data => {
-  //     res.render("newIdea", {ideas: data});
-  //   }).catch(function(err){
-  //     res.status(401).json(err);
-  //   })
-  // });
 
-<<<<<<< HEAD
-<<<<<<< HEAD
   app.get("/staybusy", function(req, res) {
     db.Idea.findAll({}).then(ideas => {
       res.json(ideas);
     });
-=======
+  });
   app.get("/staybusy/ideas", function(req, res) {
-    db.Idea.findAll({})
-    .then(data => {res.json(data);});
->>>>>>> 1e5c86da9b35ef722fa47709147aeacbc29fa9b7
-=======
-  app.get("/staybusy/ideas", function(req, res) {
-    db.Idea.findAll({})
-    .then(data => {res.json(data);});
->>>>>>> 9810d71f96ac246467e0b4b76431257a0616bdd9
+    db.Idea.findAll({}).then(data => {
+      res.json(data);
+    });
   });
 
   app.post("/staybusy", function(req, res) {
