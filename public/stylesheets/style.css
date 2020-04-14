@@ -6,6 +6,7 @@ form.login {
 .buttons-span {
   padding: 10px;
 }
+
 #newPost {
   margin-top: 1.5em;
 }
@@ -69,4 +70,15 @@ form.login {
 #createComment {
   margin-top: 0.35em;
   margin-left: 0.18em;
+}
+
+
+.idea {
+  padding: 10px;
+  margin: 10px;
+  background-color: #e8f9ff;
+}
+
+.links {
+
 }

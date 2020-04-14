@@ -1,7 +1,9 @@
+    var bodyInput = $("#body");
+    var titleInput = $("#title");
+    var authorSelect = $("#email");
+
 $(document).ready(function() {
-    let bodyInput = $("#body");
-    let titleInput = $("#title");
-    let authorSelect = $("#email");
+    
     console.log(bodyInput);
 
     $("#submit").on("click ", function(event) {
@@ -37,21 +39,20 @@ $(document).ready(function() {
         $("#email").val("");
     });
 
+    $.get("/staybusy/ideas", function(data) {
+        console.log(data);
+        if (data.length !== 0) {
+           for (var i = 0; i < data.length; i++)
+            var row = $("<div>");
+            row.addClass("idea");
     
-
-   $.get("/staybusy", function(data){
-       if (data.length !== 0) {
-           for (var i = 0; i<data.length; i++)
-           var row = $("<div>");
-          row.addClass("idea");
-
-          row.append("<p> Title: " + data[i].title + "</p>");
-          row.append("<p> Idea: " + data[i].body + "</p>");
-          row.append("<p> User: " + data[i].user + "</p>");
-
+            row.append("<p> Title: " + data[i].title + "</p>");
+            row.append("<p> Idea: " + data[i].body + "</p>");
+            row.append("<p> User: " + data[i].user + "</p>");
+    
           $(".new-idea").prepend(row);
        }
-   })
+    });
 
   });
 
