@@ -120,10 +120,16 @@ module.exports = function(app) {
   //   })
   // });
 
+<<<<<<< HEAD
   app.get("/staybusy", function(req, res) {
     db.Idea.findAll({}).then(ideas => {
       res.json(ideas);
     });
+=======
+  app.get("/staybusy/ideas", function(req, res) {
+    db.Idea.findAll({})
+    .then(data => {res.json(data);});
+>>>>>>> 1e5c86da9b35ef722fa47709147aeacbc29fa9b7
   });
 
   app.post("/staybusy", function(req, res) {
