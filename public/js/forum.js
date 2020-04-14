@@ -41,7 +41,7 @@ $(document).ready(function() {
       .val()
       .trim();
     let url = window.location.href;
-    let id = url.substring(42, 45);
+    let id = url.substring(41, 45);
     console.log(url);
     console.log(id);
     $.ajax({
