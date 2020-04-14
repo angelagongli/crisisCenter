@@ -7,6 +7,9 @@ form.login {
   padding: 10px;
 }
 
+#body {
+  resize: none;
+}
 #newPost {
   margin-top: 1.5em;
 }
@@ -53,12 +56,14 @@ form.login {
 }
 #postTitle {
   margin-top: 2.5em;
+  width: 58.8vw;
 }
 #postBody {
   height: 40vh;
   margin-top: 0.55em;
   margin-bottom: 0.75em;
   overflow-y: scroll;
+  width: 58.8vw;
 }
 #newComment {
   resize: none;
@@ -71,6 +76,24 @@ form.login {
 #createComment {
   margin-top: 0.35em;
   margin-left: 0.18em;
+}
+.comment {
+  padding: 0.2em;
+  padding-top: 0.7em;
+  margin-top: 0.3em;
+  background-color: ghostwhite;
+  border: 0.08em solid steelblue;
+  border-radius: 0.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#commentArea {
+  margin-top: 2.5em;
+  margin-left: 25vw;
+  width: 40vw;
+  margin-bottom: 1em;
 }
 
 .idea {
