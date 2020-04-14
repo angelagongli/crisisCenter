@@ -120,9 +120,22 @@ module.exports = function(app) {
   //   })
   // });
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+  app.get("/staybusy", function(req, res) {
+    db.Idea.findAll({}).then(ideas => {
+      res.json(ideas);
+    });
+=======
   app.get("/staybusy/ideas", function(req, res) {
     db.Idea.findAll({})
     .then(data => {res.json(data);});
+>>>>>>> 1e5c86da9b35ef722fa47709147aeacbc29fa9b7
+=======
+  app.get("/staybusy/ideas", function(req, res) {
+    db.Idea.findAll({})
+    .then(data => {res.json(data);});
+>>>>>>> 9810d71f96ac246467e0b4b76431257a0616bdd9
   });
 
   app.post("/staybusy", function(req, res) {

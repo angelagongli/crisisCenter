@@ -42,7 +42,7 @@ $(document).ready(function() {
       .trim();
     let url = window.location.href;
     let id = url.substring(28, 31);
-    console.log(id);
+    console.log(url);
     $.ajax({
       url: url,
       method: "POST",
