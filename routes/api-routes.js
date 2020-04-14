@@ -4,6 +4,8 @@ var passport = require("../config/passport");
 var exphbs = require("express-handlebars");
 var axios = require("axios");
 var Twitter = require("twitter");
+//Bringing in so that we can access the user's id
+var isAuthenticated = require("../config/middleware/isAuthenticated");
 module.exports = function(app) {
   // Using the passport.authenticate middleware with our local strategy.
   // If the user has valid login credentials, send them to the members page.
@@ -123,7 +125,16 @@ module.exports = function(app) {
   app.post("/posts", function(req, res) {
     db.Post.create({
       title: req.body.title,
-      body: req.body.body
+      body: req.body.body,
+      UserId: req.user.id
+    }).then(() => res.json({}));
+  });
+
+  app.post("/forum/:id", isAuthenticated, function(req, res) {
+    db.Comment.create({
+      message: req.body.message,
+      PostId: req.params.id,
+      UserId: req.user.id
     }).then(() => res.json({}));
   });
 
@@ -221,7 +232,7 @@ module.exports = function(app) {
       });
   });
 
-  app.get("api/tweets", function(req, res) {
+  app.get("/api/tweets", function(req, res) {
 
     var client = new Twitter({
       consumer_key: process.env.consumer_key,
@@ -237,9 +248,6 @@ module.exports = function(app) {
         if (error) console.log(error);
         console.log(tweets);
         res.json(tweets);
-      }
-    )
-  });
+      });
 
-};
-
+})};

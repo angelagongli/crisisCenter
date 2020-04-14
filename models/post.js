@@ -7,6 +7,10 @@ module.exports = function(sequelize, DataTypes) {
     body: {
       type: DataTypes.TEXT,
       allowNull: false
+    },
+    UserId: {
+      type: DataTypes.INTEGER,
+      allowNull: false
     }
   });
 
