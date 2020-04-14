@@ -61,7 +61,8 @@ $(document).ready(function() {
       url: url,
       method: "POST",
       data: {
-        message: comment
+        message: comment,
+        id: id
       }
     }).then(function() {
       $("#newComment").val("");
