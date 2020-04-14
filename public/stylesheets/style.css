@@ -58,6 +58,7 @@ form.login {
   height: 40vh;
   margin-top: 0.55em;
   margin-bottom: 0.75em;
+  overflow-y: scroll;
 }
 #newComment {
   resize: none;
