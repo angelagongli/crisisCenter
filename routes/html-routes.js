@@ -100,17 +100,6 @@ module.exports = function(app) {
     });
   });
 
-  app.get("/comments/:id", isAuthenticated, function(req, res) {
-    db.Comment.findAll({
-      where: {
-        PostId: req.params.id
-      }
-    }).then(comments => {
-      console.log("called");
-      res.json(comments);
-    });
-  });
-
   app.get("/staybusy", function(req, res) {
     db.Idea.findAll({}).then(ideas => {
       res.json(ideas);
