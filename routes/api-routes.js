@@ -97,6 +97,19 @@ module.exports = function(app) {
         res.status(401).json(err);
       });
   });
+  app.delete("/api/bookmarks/:id", function(req, res) {
+    db.Bookmark.destroy({
+      where : {
+        id: req.params.id
+      }
+    })
+      .then(function(data) {
+        res.json(data);
+      })
+      .catch(function(err) {
+        res.status(401).json(err);
+      });
+  });
   // Route for logging user out
   app.get("/logout", function(req, res) {
     req.logout();
