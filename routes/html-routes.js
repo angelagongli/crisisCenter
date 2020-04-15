@@ -50,7 +50,25 @@ module.exports = function(app) {
       where: { recipientID: req.user.id }
     })
       .then(data => {
-        res.render("inbox", { emails: data });
+        db.User.findAll({
+          attributes: ["name", "email", "id"]
+        }).then(senderData => {
+          let senderLookup = {};
+          for (sender of senderData) {
+            senderLookup[sender.id] = `${sender.name} (${sender.email})`
+          }
+          console.log("Returned by Sequelize...");
+          console.log(data);
+          let emailsWithSenders = [];
+          for (record of data) {
+            let recordWithSender = record.toJSON();
+            recordWithSender.senderInfo = senderLookup[record.UserId];
+            emailsWithSenders.push(recordWithSender);
+          }
+          console.log("Passed to Handlebars...");
+          console.log(emailsWithSenders);
+          res.render("inbox", { emails: emailsWithSenders });
+        });
       })
       .catch(function(err) {
         res.status(401).json(err);
@@ -61,7 +79,25 @@ module.exports = function(app) {
       where: { UserId: req.user.id }
     })
       .then(data => {
-        res.render("outbox", { emails: data });
+        db.User.findAll({
+          attributes: ["name", "email", "id"]
+        }).then(recipientData => {
+          let recipientLookup = {};
+          for (recipient of recipientData) {
+            recipientLookup[recipient.id] = `${recipient.name} (${recipient.email})`
+          }
+          console.log("Returned by Sequelize...");
+          console.log(data);
+          let emailsWithRecipients = [];
+          for (record of data) {
+            let recordWithRecipient = record.toJSON();
+            recordWithRecipient.recipientInfo = recipientLookup[record.recipientID];
+            emailsWithRecipients.push(recordWithRecipient);
+          }
+          console.log("Passed to Handlebars...");
+          console.log(emailsWithRecipients);
+          res.render("outbox", { emails: emailsWithRecipients });
+        });
       })
       .catch(function(err) {
         res.status(401).json(err);
