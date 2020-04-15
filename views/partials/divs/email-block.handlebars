@@ -1,7 +1,9 @@
 <li class="list-group-item">
-    <span class="label">Sent:</span> {{dataValues.createdAt}} <br>
-    <span class="label">Subject:</span> {{dataValues.subject}} <br>
-    <span class="label">Message:</span> {{dataValues.message}} <br>
+    <span class="label">Sent:</span> {{createdAt}} <br>
+    {{#if inbox}}<span class="label">Sender:</span> {{senderInfo}} <br>
+    {{else}}<span class="label">Recipient:</span> {{recipientInfo}} <br>{{/if}}
+    <span class="label">Subject:</span> {{subject}} <br>
+    <span class="label">Message:</span> {{message}} <br>
     <span class="label">Body:</span> <br>
-    <div class="content-box">{{{dataValues.content}}}</div>
+    <div class="content-box">{{{content}}}</div>
 </li>
