@@ -151,18 +151,26 @@ module.exports = function(app) {
     }).then(() => res.json({}));
   });
 
-  app.get("/forum/:id", function(req, res) {
-    app.engine("handlebars", exphbs({ defaultLayout: "forum" }));
-    app.set("view engine", "handlebars");
-    db.Post.findOne({
+  // app.get("/forum/:id", function(req, res) {
+  //   db.Post.findOne({
+  //     where: {
+  //       id: req.params.id
+  //     }
+  //   }).done(function(post) {
+  //     app.render("post", {
+  //       title: post.title,
+  //       body: post.body
+  //     });
+  //   });
+  // });
+
+  app.get("/comments/:id", isAuthenticated, function(req, res) {
+    db.Comment.findAll({
       where: {
-        id: req.params.id
+        PostId: req.params.id
       }
-    }).done(function(post) {
-      app.render("post", {
-        title: post.title,
-        body: post.body
-      });
+    }).then(comments => {
+      res.json(comments);
     });
   });
 
@@ -232,10 +240,13 @@ module.exports = function(app) {
     }
   });
   app.get("/api/nytimes", function(req, res) {
-    let queryURL = "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
-      process.env.NYTIMES_API_KEY + "&q=coronavirus";
-    
-    axios.get(queryURL)
+    let queryURL =
+      "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=" +
+      process.env.NYTIMES_API_KEY +
+      "&q=coronavirus";
+
+    axios
+      .get(queryURL)
       .then(response => {
         console.log(response.data);
         res.json(response.data);
@@ -246,7 +257,6 @@ module.exports = function(app) {
   });
 
   app.get("/api/tweets", function(req, res) {
-
     var client = new Twitter({
       consumer_key: process.env.consumer_key,
       consumer_secret: process.env.consumer_secret,
@@ -261,6 +271,7 @@ module.exports = function(app) {
         if (error) console.log(error);
         console.log(tweets);
         res.json(tweets);
-      });
-
-})};
+      }
+    );
+  });
+};

@@ -1,7 +1,7 @@
 $(document).ready(function() {
   $("#createPost").on("click", function() {
-    let title = $("#postTitle").val();
-    let body = $("#postBody").val();
+    let title = $("#title").val();
+    let body = $("#body").val();
     $.ajax({
       url: "/posts",
       method: "POST",
@@ -36,34 +36,37 @@ $(document).ready(function() {
     });
   });
 
+  let url = window.location.href;
+  let id = url.substring(41, 45);
+
+  $.get(`/comments/${id}`, function(data) {
+    let commentsContainer = $("#commentArea");
+    commentsContainer.empty();
+    for (i = 0; i < data.length; i++) {
+      let commentRow = $("<div>").attr("class", "comment");
+      let comment = $("<p>");
+      let commentMessage = data[i].message;
+      comment.append(commentMessage);
+      commentRow.append(comment);
+      commentsContainer.append(commentRow);
+    }
+  });
+
   $("#createComment").on("click", function() {
     let comment = $("#newComment")
       .val()
       .trim();
-    let url = window.location.href;
-    let id = url.substring(41, 45);
-    console.log(url);
-    console.log(id);
+
     $.ajax({
       url: url,
       method: "POST",
       data: {
-        message: comment
+        message: comment,
+        id: id
       }
     }).then(function() {
       $("#newComment").val("");
-      $.get(`/comments/${id}`, function(data) {
-        let commentsContainer = $("#commentArea");
-        commentsContainer.empty();
-        for (i = 0; i < data.length; i++) {
-          let commentRow = $("<div>").attr("class", "comment");
-          let comment = $("<p>");
-          let commentMessage = data[i].message;
-          comment.append(commentMessage);
-          commentRow.append(comment);
-          commentsContainer.append(commentRow);
-        }
-      });
+      location.reload();
     });
   });
 });
